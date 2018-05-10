@@ -130,10 +130,11 @@ BSTNode* BST::remover(BSTNode *no, int valor){
       // PRIMEIRO CASO DA REMOÇÃO
 
       if(no->getData() == valor){
-        if((no->getRight() == NULL )&& (no->getLeft()== NULL))
+        if((no->getRight() == NULL )&& (no->getLeft()== NULL)){
             delete(no);
             return NULL;
-      }
+          }
+
 
 
       // SEGUNDO CASO DA REMOÇÃO
@@ -150,12 +151,21 @@ BSTNode* BST::remover(BSTNode *no, int valor){
         return aux;
       }
 
-      //TERCEIRO CASO
+      //TERCEIRO CASO DA REMOÇÃO
 
       BSTNode* esquerda = no->getLeft();
       while(esquerda->getRight() != NULL)
         esquerda = esquerda->getRight();
 
-      no->setData(aux->getData());
-      remover(aux, aux->getData());
+      no->setData(esquerda->getData());
+      remover(esquerda, esquerda->getData());
+    }
+
+      // SE NÃO ACHOU O VALOR
+      
+      if(valor > no->getData()){
+        no->setRight(remover(no->getRight(), valor));
+      }
+      else
+      no->setLeft(remover(no->getLeft(), valor));
 }
