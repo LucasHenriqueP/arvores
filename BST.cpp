@@ -162,10 +162,30 @@ BSTNode* BST::remover(BSTNode *no, int valor){
     }
 
       // SE NÃO ACHOU O VALOR
-      
+
       if(valor > no->getData()){
         no->setRight(remover(no->getRight(), valor));
       }
       else
       no->setLeft(remover(no->getLeft(), valor));
 }
+
+     BSTNode* BST::busca(int valor){
+       busca(root, valor);
+     }
+
+     BSTNode* BST::busca(BSTNode *no, int valor){
+       if(no == NULL){
+         return NULL;
+       }
+       int d = no->getData();
+       if(d == valor){
+         return no;
+       }
+       if(valor < d){
+         return busca(no->getLeft(), valor);
+       }
+       else if(valor > d){
+         return busca(no->getRight(), valor);
+       }
+     }

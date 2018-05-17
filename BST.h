@@ -17,6 +17,7 @@ class BST
     void posOrder();
     void inOrder();
     BSTNode* remover(int);
+    BSTNode* busca(int);
     protected:
 
     private:
@@ -29,6 +30,7 @@ class BST
     void posOrder(BSTNode *no);
     void inOrder(BSTNode *no);
     BSTNode* remover(BSTNode *, int);
+    BSTNode* busca(BSTNode *, int);
 
 };
 
