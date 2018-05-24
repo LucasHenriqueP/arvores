@@ -19,21 +19,13 @@ bool BST::isEmpty()
     return root==NULL;
 }
 
-int BST::height()
+int BST::height(BSTNode* t)
 {
-	return height(root); //altura da �rvore � a altura do seu n� raiz
+	return t == NULL ? -1 : t->getHeight();
 }
 
-int BST::height(BSTNode *no)
-{
-	if (no == NULL)
-		return -1;
-	int leftHeight = height(no->getLeft());
-	int rightHeight = height(no->getRight());
-	if (leftHeight < rightHeight)
-		return 1 + rightHeight;
-	else
-		return 1 + leftHeight;
+int BST::max(int lhs, int rhs){
+	return lhs > rhs ? lhs : rhs;
 }
 
 int BST::qtNodes()
@@ -55,25 +47,7 @@ void BST::inserir (int valor)
     root = inserir(root,valor);
 }
 
-BSTNode* BST::inserir(BSTNode* node, int valor)
-{
-    /*Se � uma arvore ou subarvore vazia, cria 1 novo n� e retorna*/
-    if (node == NULL)
-       	return new BSTNode(valor);
-    if (valor < node->getData())
-    {
-        node->setLeft(inserir(node->getLeft(), valor));
-        return node;
-    //Verifica se o valor a ser inserido � maior que o no corrente da �rvore, se sim vai para subarvore direita
-    }
-    else if (valor > node->getData())
-            {
-                //Se tiver elemento no no direito continua a busca
-              node->setRight(inserir(node->getRight(),valor));
-              return node;
 
-      }
-}
 
 void BST::preOrder()
 {
@@ -120,6 +94,73 @@ void BST::inOrder(BSTNode *no)
 
     }
 }
+
+
+BSTNode* BST::inserir(BSTNode* t, int x){
+
+	if(t == NULL){
+
+		t = new BSTNode(x);
+
+	}else if (x < t->getData()){
+
+		t->setLeft( inserir(t->getLeft(), x) );
+
+    //cout << "RIGHT: " << height(NULL) << endl;
+
+		if( height(t->getRight()) - height(t->getLeft()) == -2){
+
+			if(x < t->getLeft()->getData()){
+				t = rotateLL( t );
+			}else{
+				t = rotateLR( t );
+			}
+       if(x > t->getData()){
+
+				t->setRight(inserir(t->getRight(), x));
+
+				if(height(t->getRight()) - height(t->getLeft()) == 2){
+					if( x > t->getRight()->getData()){
+						t = rotateRR(t);
+					}else{
+						t = rotateRL(t);
+					}
+				}
+
+			}else{
+				t->setHeight(max(height(t->getLeft()), height(t->getRight())) + 1);
+				return t;
+			}
+		}
+	}
+
+}
+
+BSTNode* BST::rotateLL(BSTNode* node){
+
+	BSTNode* leftSubTree = node->getLeft();
+	node->setLeft(leftSubTree->getRight());
+	leftSubTree->setRight(node);
+	node->setHeight( max( height(node->getLeft()), height(node->getRight()) )+1); //implementar
+	leftSubTree->setHeight( max(height(leftSubTree->getLeft()), node->getHeight()) + 1 );
+	return leftSubTree;
+}
+
+BSTNode* BST::rotateLR(BSTNode* node){
+	node->setLeft( rotateRR( node->getLeft() ) );
+	return rotateLL(node);
+}
+
+BSTNode* BST::rotateRL(BSTNode* node){
+	return node;
+}
+
+
+BSTNode* BST::rotateRR(BSTNode* node){
+	return node;
+}
+
+
 
 BSTNode*  BST::remover(int valor){
     remover(root, valor);
