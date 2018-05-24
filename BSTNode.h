@@ -17,12 +17,16 @@ class BSTNode
         BSTNode* getRight();
         void setRight(BSTNode*);
         void setLeft(BSTNode*);
+	void setHeight(int);
+	int getHeight();
+
 
     protected:
 
     private:
         BSTNode *left, *right;
         int data;
+	int height;
 };
 
 #endif // BSTNODE_H
