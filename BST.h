@@ -10,10 +10,9 @@ class BST
 
     BSTNode* getRoot();
     bool isEmpty();
-	  int height();
-	  int qtNodes();
-	  void inserir (int valor);
-	  void preOrder();
+    int qtNodes();
+    void inserir (int valor);
+    void preOrder();
     void posOrder();
     void inOrder();
     BSTNode* remover(int);
@@ -25,12 +24,17 @@ class BST
 
     int height(BSTNode*);
     int qtNodes(BSTNode*);
-    BSTNode* inserir(BSTNode*, int);
     void preOrder(BSTNode *no);
     void posOrder(BSTNode *no);
     void inOrder(BSTNode *no);
+    int max(int lhs, int rhs);
     BSTNode* remover(BSTNode *, int);
     BSTNode* busca(BSTNode *, int);
+    BSTNode* rotateLR(BSTNode* node);
+    BSTNode* rotateLL(BSTNode* node);
+    BSTNode* inserir(BSTNode* t, int x);
+    BSTNode* rotateRL(BSTNode* node);
+    BSTNode* rotateRR(BSTNode* node);
 
 };
 
