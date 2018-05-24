@@ -20,9 +20,19 @@ BSTNode::BSTNode(int d)
         data = d;
         left = NULL;
         right = NULL;
+	      height = 0;
     }
 
 }
+
+void BSTNode::setHeight(int n){
+	height = n;
+}
+
+int BSTNode::getHeight(){
+	return height;
+}
+
 
 BSTNode::~BSTNode()
 {
